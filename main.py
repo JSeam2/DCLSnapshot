@@ -5,6 +5,7 @@ import logging
 import sys
 import json
 import os
+import time
 
 # TODO: Graph mainnet doesn't seem to work
 # DCL_GRAPH_ENDPOINT = f"https://gateway.thegraph.com/api/{secret.THEGRAPH_API_KEY}/id/GnwyhKp8uQkktC3vgMxWpg9f9qea75WQ6GXTxjW6BbZq"
@@ -76,6 +77,11 @@ def main():
     skip = 0
     first = 10
 
+    # make base path with current time
+    unixtime = str(int(time.time()))
+    path = os.path.join("snapshot", unixtime)
+    os.mkdir(path)
+
     while True:
         # Query the graph
         data = graph_query(first, skip)
@@ -87,15 +93,15 @@ def main():
 
         for parcel in parcel_list:
             print(parcel)
-            # Save metadata in a folder within snapshot
+            # Save metadata in a subpath
             if parcel["estate"] is not None:
-                path = os.path.join("snapshot", parcel["tokenId"] + "_" + parcel["estate"]["tokenId"])
+                subpath = os.path.join(path, parcel["tokenId"] + "_" + parcel["estate"]["tokenId"])
             else:
-                path = os.path.join("snapshot", parcel["tokenId"])
+                subpath = os.path.join(path, parcel["tokenId"])
 
-            os.mkdir(path)
+            os.mkdir(subpath)
 
-            with open(os.path.join(path, "metadata.json"), "w") as f:
+            with open(os.path.join(subpath, "metadata.json"), "w") as f:
                 json.dump(parcel, f, indent=2)
 
             # TODO: Look for the gltfs and save it within the folders
