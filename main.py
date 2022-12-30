@@ -110,4 +110,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Catch all exception and log them
+    try:
+        main()
+    except Exception as e:
+        logger.error(e, exc_info=True)
