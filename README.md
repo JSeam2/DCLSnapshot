@@ -17,12 +17,12 @@ pipenv install
 pipenv shell
 ```
 
-5. Run the script. The script will create folders within `./snapshot` followng this structure `./snapshot/<unixtimetamp>/<tokenId_estateTokenIdIfExists>` and then store the various dcl parcel information within them.
+5. Run the script. The script will create folders within `./snapshot` followng this structure `./snapshot/<unixtimetamp>/estate_<estateId>` or `./snapshot/<unixtimestamp>/tokenId_<tokenId>`  and then store the various dcl parcel information within them.
 ```shell
 python main.py
 ```
 
-6. Within the folder a `metadata.json` will be stored containing the following information obtained from Thegraph.
+6. Within the folder a `metadata_<tokenId>.json` (or multiple in the case of estates) will be stored containing the following information obtained from Thegraph.
 ```json
       {
         "id": "parcel-0xf87e31492faf9a91b02ee0deaad50d51d56d5d4d-0",
