@@ -1,3 +1,4 @@
-/snapshot
+/thegraph_snapshot
+/catalyst_snapshot
 secret.py
 snapshot.log

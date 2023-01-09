@@ -11,6 +11,8 @@ import time
 # DCL_GRAPH_ENDPOINT = f"https://gateway.thegraph.com/api/{secret.THEGRAPH_API_KEY}/id/GnwyhKp8uQkktC3vgMxWpg9f9qea75WQ6GXTxjW6BbZq"
 # TODO: Hosted endpoint is limited to first (0-1000), skip (0-5000)
 DCL_GRAPH_ENDPOINT = "https://api.thegraph.com/subgraphs/name/decentraland/marketplace"
+
+# catalyst api https://decentraland.github.io/catalyst-api-specs/#tag/Content-Server/operation/headContentFile
 DCL_CONTENT_SERVER = "https://peer.decentraland.org/content/contents/"
 
 # Setup logging
@@ -79,7 +81,7 @@ def main():
 
     # make base path with current time
     unixtime = str(int(time.time()))
-    path = os.path.join("snapshot", unixtime)
+    path = os.path.join("thegraph_snapshot", unixtime)
     os.mkdir(path)
 
     while True:
@@ -103,8 +105,6 @@ def main():
 
             with open(os.path.join(subpath, "metadata.json"), "w") as f:
                 json.dump(parcel, f, indent=2)
-
-            # TODO: Look for the gltfs and save it within the folders
 
         skip += first
 
