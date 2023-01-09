@@ -22,10 +22,16 @@ fi
 while read -r LINE; do
   mkdir ".//catalyst_snapshot//$DATE//parcel_$LINE"
   curl "https://peer.decentraland.org/content/entities/scene?pointer=$LINE" \
-  | jq -r ".[0].content[]|[.file, .hash] | @tsv" \
-  | while read -r pat url; do
-    if [ ! -f ".//catalyst_snapshot//$DATE//parcel_$LINE//$pat" ]; then
-        curl --create-dirs -o ".//catalyst_snapshot//$DATE//parcel_$LINE//$pat" "https://peer.decentraland.org/lambdas/contentv2/contents/$url"
+  | jq -r ".[0].content[]|[.file, .hash] | @csv" \
+  | while IFS="," read -r pat url; do
+    # remove double quotes from prefix and suffix
+    temppat=$(sed -e 's/^"//' -e 's/"$//' <<<$pat);
+    tempurl=$(sed -e 's/^"//' -e 's/"$//' <<<$url);
+
+    url3="https://peer.decentraland.org/lambdas/contentv2/contents/$tempurl";
+
+    if [ ! -f ".//catalyst_snapshot//$DATE//parcel_$LINE//$temppat" ]; then
+        curl --create-dirs -o ".//catalyst_snapshot//$DATE//parcel_$LINE//$temppat" $url3;
     fi
   done
 done < $COORD_FILE
