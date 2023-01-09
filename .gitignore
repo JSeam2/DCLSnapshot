@@ -1,4 +1,6 @@
-/thegraph_snapshot
-/catalyst_snapshot
+thegraph_snapshot/*
+!thegraph_snapshot/.gitkeep
+catalyst_snapshot/*
+!catalyst_snapshot/.gitkeep
 secret.py
 snapshot.log
