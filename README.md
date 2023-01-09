@@ -83,6 +83,8 @@ $ bash catalyst.sh
 $ bash catalyst.sh chunk_1.txt
 ```
 
+3. To access the parcel, go to the specific folder `catalyst_snapshot/YYYY-MM-DD/parcel_x,y`. Run `npm install` and `npm start`. The local DCL server will launch and you should be able to view the scene.
+
 ## Additional Configurations
 
 ### ipfs_gateway.py
