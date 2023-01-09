@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # make a directory with today's date if it does not exist
-DATE=$(date +%Y-%m-%d);
+DATE=$(date -u +%Y-%m-%d);
 if [ ! -d ".//catalyst_snapshot//$DATE" ]; then
     echo "Creating ./catalyst_snapshot/$DATE to store parcel data";
     mkdir ".//catalyst_snapshot//$DATE";
